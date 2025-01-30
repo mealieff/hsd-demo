@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository contains code and data for an ongoing project in hate speech detection which aims to mitigate high false positive rates due to class imbalance. We focus on resampling techniques that aim to rebalance binary and multiclass distributions by focusing exclusively on data preprocessing. We validate the resampling techniques with binary and multiclass (OVR) SVM classification.
+This repository contains code and data for an ongoing project in hate speech detection which aims to mitigate high false positive rates due to class imbalance. We focus on resampling techniques that aim to rebalance binary and multiclass distributions by focusing exclusively on data preprocessing. We validate the resampling techniques with binary and multiclass (OVR) SVM classification. Warning: the data contains graphic and hateful content. 
 
 ## Key Files
 
