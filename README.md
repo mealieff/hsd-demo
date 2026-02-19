@@ -1,26 +1,38 @@
-# hsd-demo
+# SVM demo: hate speech detection
 
-## Overview
+Minimal demo for training a binary SVM classifier on the **Gab Hate Corpus**.  
+*Warning: the dataset contains graphic and hateful content.*
 
-This repository contains code and data for an ongoing project in hate speech detection which aims to mitigate high false positive rates due to class imbalance. We focus on resampling techniques that aim to rebalance binary and multiclass distributions by focusing exclusively on data preprocessing. We validate the resampling techniques with binary and multiclass (OVR) SVM classification. 
+**Background:** [docs/SVM.md](docs/SVM.md) — SVMs and single/binary labels. [docs/Rebalancing.md](docs/Rebalancing.md) — rebalancing techniques (random over/under, SMOTE, ADASYN, class weighting).
 
-_Warning:_ the data contains graphic and hateful content. 
+## Setup
 
-## Key Files
+1. **Create and activate a virtual environment** (recommended):
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate   # Linux/macOS
+   # Windows: venv\Scripts\activate
+   ```
+2. Run the setup script (installs deps into the active env):
+   ```bash
+   bash setup.sh
+   ```
+3. Download the dataset from [OSF (Gab Hate Corpus)](https://osf.io/edua3/) and place **ghc_train.tsv** and **ghc_test.tsv** in the **data/** folder.
 
-### Code
+## Scripts and solutions
 
-- **`getdistrib.py`**
-  This script aims to read in the test and train files and provide counts for binary labels and multiclass labels along test and training splits. 
+- **scripts/** — Partially empty scripts with instructions in docstrings. Implement these to practice the pipeline.
+- **solutions/** — Reference implementations. Run or compare against these if stuck (e.g. `python solutions/train_svm.py` from repo root).
 
-### Data Files
-- **`ghc_train.tsv`** and **`ghc_test.tsv`**  
-  Training and testing datasets from the Gab Hate Speech Corpus: https://osf.io/edua3/. Each column in this file is populated with 'text' (Gab posts), 'hd' (hate speech), 'cv' (calls for violence), and 'vo' (vulgar language). Each tab-delimited column is populated with 1s and 0s if the category of offensive language is present. 
+## Train the model
 
-### References
-Kennedy, B., Atari, M., Davani, A.M. et al. (2022) Introducing the Gab Hate Corpus: defining and applying hate-based rhetoric to social media posts at scale. Lang Resources & Evaluation 56, 79–108.
+From repo root: `python scripts/train_svm.py` (or `cd scripts` then `python train_svm.py`).  
+The pipeline loads TSV from `data/`, builds binary labels, TF-IDF, LinearSVC, and prints classification report and confusion matrix.
 
-### First Preprocessing Step
-Run `getdistrib.py` to generate label counts for binary, which gathers label distributions into two categories: hate and non hate, and multilabel class distributions which considers every possible label distribution. This script reports distributions for training and test sets. 
+## Optional: label distribution
 
-  
+To inspect binary and multiclass label counts: `python scripts/current_distribution.py` (or run `solutions/current_distribution.py` for the reference). Reads from `data/ghc_train.tsv` and `data/ghc_test.tsv`.
+
+## Reference
+
+Kennedy, B., Atari, M., Davani, A.M. et al. (2022) Introducing the Gab Hate Corpus: defining and applying hate-based rhetoric to social media posts at scale. *Lang Resources & Evaluation* 56, 79–108.

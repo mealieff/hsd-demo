@@ -43,8 +43,13 @@ def print_label_distribution(data, dataset_name):
     count_label_combinations(data, dataset_name)
 
 def main():
-    train_file = "ghc_train.tsv"
-    test_file = "ghc_test.tsv"
+    import os
+    data_dir = "data"
+    train_file = os.path.join(data_dir, "ghc_train.tsv")
+    test_file = os.path.join(data_dir, "ghc_test.tsv")
+    if not os.path.isfile(train_file) or not os.path.isfile(test_file):
+        print(f"Place ghc_train.tsv and ghc_test.tsv in {data_dir}/ (see data/README.md).")
+        return
 
     # Load the datasets  
     print("Loading datasets...")
